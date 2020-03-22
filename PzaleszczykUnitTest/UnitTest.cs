@@ -1,10 +1,20 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PzaleszczykLib;
+using FluentAssertions;
 
 namespace PzaleszczykUnitTest
 {
-    
+    /*
+    będą zawierały najmniej 3 różne typy assercji (patrz)  - 2 punkty
+        Assert.AreEqual, Assert.ThrowsException,
+    będą zawierały najmniej jeden Data-Driven Unit Test (patrz)  - 2 punkty
+        
+    wykorzystają Microsoft Fakes (stubs & shims) - 2 punkty
+        
+    wykorzystać FluentAssertions w testach - 1 punkt
+        testy z *Fluent()
+    */
 
 
     [TestClass]
@@ -35,6 +45,20 @@ namespace PzaleszczykUnitTest
 
             Assert.AreEqual(expected, actual, "Ceasar encrypt is incorrect");
         }
+
+        [TestMethod]
+        public void CaesarEncryptFluent()
+        {
+            string text = "Osiem!";
+            int key = 1;
+
+            string actual = cypher.C_crypt(text, key);
+            string expected = "Ptjfn!";
+
+            //FluentAssertions example
+            actual.Should().StartWith("A").And.EndWith("!").And.Contain("j");
+        }
+
         [TestMethod]
         public void CaesarDecrypt()
         {
@@ -45,8 +69,8 @@ namespace PzaleszczykUnitTest
             string expected = "Osiem!";
 
             Assert.AreEqual(expected, actual, "Ceasar decrypt is incorrect");
-
         }
+
         [TestMethod]
         public void AffineEncrypt()
         {
@@ -135,14 +159,16 @@ namespace PzaleszczykUnitTest
 
 
         [TestMethod]
-        public void AffineAnalyzeAll()
+        public void AffineAnalyzeAllNull()
         {
-
+            string[] expected = cypher.A_analyzeAll(null);
+            Assert.IsNull(expected, "Does not return null");
         }
         [TestMethod]
-        public void CaesarAnalyzeAll()
+        public void CaesarAnalyzeAllNull()
         {
-
+            string[] expected = cypher.C_analyzeAll(null);
+            Assert.IsNull(expected, "Does not return null");
         }
 
         [TestMethod]

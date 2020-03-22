@@ -56,7 +56,7 @@ namespace PzaleszczykUnitTest
             string expected = "Ptjfn!";
 
             //FluentAssertions example
-            actual.Should().StartWith("A").And.EndWith("!").And.Contain("j");
+            actual.Should().StartWith("P").And.EndWith("!").And.Contain("j");
         }
 
         [TestMethod]

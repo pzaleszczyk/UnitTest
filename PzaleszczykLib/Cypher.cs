@@ -199,6 +199,8 @@ namespace PzaleszczykLib
         }
         public String[] C_analyzeAll(String text)
         {
+            if (text == null)
+                return null;
             String[] result = new String[25];
             for (int i = 1; i < 26; i++)
             {
@@ -210,8 +212,6 @@ namespace PzaleszczykLib
 
         public String[] C_analyze(String extra, String text)
         {
-            if (text == null)
-                return null;
             int key = -1;
             String result = "";
             for (int i = 1; i < 26; i++)

@@ -12,6 +12,8 @@ namespace PzaleszczykLib
 
         public String[] A_analyzeAll(String text)
         {
+            if (text == null)
+                return null;
             int[] primes = { 1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25 };
             int index = 0;
             String[] result = new String[312];
@@ -208,6 +210,8 @@ namespace PzaleszczykLib
 
         public String[] C_analyze(String extra, String text)
         {
+            if (text == null)
+                return null;
             int key = -1;
             String result = "";
             for (int i = 1; i < 26; i++)

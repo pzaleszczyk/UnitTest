@@ -7,11 +7,11 @@ namespace PzaleszczykUnitTest
 {
     /*
     będą zawierały najmniej 3 różne typy assercji (patrz)  - 2 punkty
-        Assert.AreEqual, Assert.ThrowsException,
+        Assert.AreEqual, Assert.ThrowsException, Assert.IsNull
     będą zawierały najmniej jeden Data-Driven Unit Test (patrz)  - 2 punkty
-        
+        AnalyzeAllNull, 
     wykorzystają Microsoft Fakes (stubs & shims) - 2 punkty
-        
+        TODO
     wykorzystać FluentAssertions w testach - 1 punkt
         testy z *Fluent()
     */
@@ -56,7 +56,7 @@ namespace PzaleszczykUnitTest
             string expected = "Ptjfn!";
 
             //FluentAssertions example
-            actual.Should().StartWith("P").And.EndWith("!").And.Contain("j");
+            actual.Should().StartWith("P").And.EndWith("!").And.Contain("tjfn");
         }
 
         [TestMethod]

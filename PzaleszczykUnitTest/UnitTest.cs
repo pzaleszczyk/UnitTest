@@ -9,17 +9,23 @@ namespace PzaleszczykUnitTest
     będą zawierały najmniej 3 różne typy assercji (patrz)  - 2 punkty
         Assert.AreEqual, Assert.ThrowsException, Assert.IsNull
     będą zawierały najmniej jeden Data-Driven Unit Test (patrz)  - 2 punkty
-        TODO
+        [DataTestMethod/DataRow] oraz [DataSource] z pliku csv.
     wykorzystają Microsoft Fakes (stubs & shims) - 2 punkty
         TODO
     wykorzystać FluentAssertions w testach - 1 punkt
         testy z *Fluent()
     */
 
-
     [TestClass]
     public class UnitTest
     {
+        private TestContext testContextInstance;
+        public TestContext TestContext
+        {
+            get { return testContextInstance; }
+            set { testContextInstance = value; }
+        }
+
         public Cypher cypher;
 
         [TestInitialize()]
@@ -34,16 +40,16 @@ namespace PzaleszczykUnitTest
             cypher = null;
         }
 
-        [TestMethod]
-        public void CaesarEncrypt()
+        [DataTestMethod]
+        [DataRow(1,"Osiem!", "Ptjfn!")]
+        [DataRow(2,"!S iedem.?!", "!U kgfgo.?!")]
+        [DataRow(3,"DFSDFADFSASDF", "GIVGIDGIVDVGI")]
+        [DataRow(4,"..//./....//.///.////", "..//./....//.///.////")]
+        [DataRow(7, "Łłó", "Łłó")]
+        public void CaesarEncrypt(int key, string input, string output)
         {
-            string text = "Osiem!";
-            int key = 1;
-
-            string actual = cypher.C_crypt(text, key);
-            string expected = "Ptjfn!";
-
-            Assert.AreEqual(expected, actual, "Ceasar encrypt is incorrect");
+            string actual = cypher.C_crypt(input, key);
+            Assert.AreEqual(output, actual, "Ceasar encrypt is incorrect");
         }
 
         [TestMethod]
@@ -58,37 +64,49 @@ namespace PzaleszczykUnitTest
             actual.Should().StartWith("P").And.EndWith("!").And.Contain("tjfn");
         }
 
-        [TestMethod]
-        public void CaesarDecrypt()
-        {
-            string text = "Ptjfn!";
-            int key = 1;
-
-            string actual = cypher.C_decrypt(text, key);
-            string expected = "Osiem!";
-
+        [DataTestMethod]
+        [DataRow(1, "Osiem!", "Ptjfn!")]
+        [DataRow(2, "!S iedem.?!", "!U kgfgo.?!")]
+        [DataRow(3, "DFSDFADFSASDF", "GIVGIDGIVDVGI")]
+        [DataRow(4, "..//./....//.///.////", "..//./....//.///.////")]
+        [DataRow(87, "łŁ", "łŁ")]
+        public void CaesarDecrypt(int key, string expected, string input)
+        { 
+            string actual = cypher.C_decrypt(input, key);
             Assert.AreEqual(expected, actual, "Ceasar decrypt is incorrect");
         }
+        //Dane z database
+        //[DataSource(
+        //    "System.Data.SqlClient",
+        //    "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DataSource;Integrated Security=True",
+        //    "Encrypt",
+        //    DataAccessMethod.Sequential), TestMethod]
 
-        [TestMethod]
-        public void AffineEncrypt()
+        [DataTestMethod]
+        [DataRow(1, 10, "Ptjfn!", "Zdtpx!")]
+        [DataRow(15, 19, "Łśżź!", "Łśżź!")]
+        public void AffineEncrypt(int keya, int keyb, string text, string expected)
         {
-            string text = "Ptjfn!";
-            int keya = 1;
-            int keyb = 10;
-
             string actual = cypher.A_crypt(text, keya, keyb);
-            string expected = "Zdtpx!";
 
             Assert.AreEqual(expected, actual, "Affine encrypt is incorrect");
 
         }
+
+        //Dane z pliku csv
+        [DeploymentItem("..\\..\\AffineDecrypt.csv")]
+        [DataSource(
+            "Microsoft.VisualStudio.TestTools.DataSource.CSV",
+            "|DataDirectory|\\AffineDecrypt.csv",
+            "AffineDecrypt#csv", DataAccessMethod.Sequential)]
         [TestMethod]
         public void AffineDecrypt()
         {
+            int keya = Convert.ToInt32(TestContext.DataRow["keya"]);
+            int keyb = Convert.ToInt32(TestContext.DataRow["keyb"]);
+
             string text = "Zdtpx!";
-            int keya = 1;
-            int keyb = 10;
+
 
             string actual = cypher.A_decrypt(text, keya, keyb);
             string expected = "Ptjfn!";
@@ -186,6 +204,35 @@ namespace PzaleszczykUnitTest
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void InverseTestNegative()
+        {
+            int expected = -1;
+            int value = cypher.Inverse(10);
+
+            Assert.AreEqual(expected, value);
+        }
+
+        [TestMethod]
+        public void AffineAnalyzeAll()
+        {
+            int expected = 312;
+            int actual = cypher.A_analyzeAll("Bulwa").Length;
+            Assert.AreEqual(expected, actual);
+
+        }
+        [TestMethod]
+        public void CaesarAnalyzeAll()
+        {
+            int expected = 25;
+            int actual = cypher.C_analyzeAll("Bulwa").Length;
+            Assert.AreEqual(expected, actual);
+
+        }
+
+       
     }
+
 }
 

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PzaleszczykLib", "Pzaleszcz
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PzaleszczykUnitTest", "PzaleszczykUnitTest\PzaleszczykUnitTest.csproj", "{C110543F-2B94-4982-BA1B-8B5A260B6E15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PzaleszczykNUnitTest", "PzaleszczykNUnitTest\PzaleszczykNUnitTest.csproj", "{CE3D0C51-22E9-4DFB-9039-CCD275AE32A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C110543F-2B94-4982-BA1B-8B5A260B6E15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C110543F-2B94-4982-BA1B-8B5A260B6E15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C110543F-2B94-4982-BA1B-8B5A260B6E15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE3D0C51-22E9-4DFB-9039-CCD275AE32A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE3D0C51-22E9-4DFB-9039-CCD275AE32A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE3D0C51-22E9-4DFB-9039-CCD275AE32A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE3D0C51-22E9-4DFB-9039-CCD275AE32A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

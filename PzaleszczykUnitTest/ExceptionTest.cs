@@ -59,23 +59,16 @@ namespace PzaleszczykUnitTest
         [TestMethod]
         public void CaesarAnalyze()
         {
-
+            Action action = () => cypher.C_analyze("?","!");
+            action.Should().Throw<Exception>().WithMessage("ERROR: Nie da sie znalesc klucza!");
         }
+
         [TestMethod]
         public void AffineAnalyze()
         {
 
         }
-        [TestMethod]
-        public void AffineAnalyzeAll()
-        {
 
-        }
-        [TestMethod]
-        public void CaesarAnalyzeAll()
-        {
-
-        }
     }
 }
 

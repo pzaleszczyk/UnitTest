@@ -2,12 +2,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PzaleszczykLib;
 using FluentAssertions;
+using System.Diagnostics;
 
 namespace PzaleszczykUnitTest
 {
     /*
     będą zawierały najmniej 3 różne typy assercji (patrz)  - 2 punkty
-        Assert.AreEqual, Assert.ThrowsException, Assert.IsNull
+        Assert.AreEqual, Assert.ThrowsException, Assert.IsNull, Assert.Fail, StringAssert.Contains, CollectionAssert.AllItemsAreNotNull
     będą zawierały najmniej jeden Data-Driven Unit Test (patrz)  - 2 punkty
         [DataTestMethod/DataRow] oraz [DataSource] z pliku csv.
     wykorzystają Microsoft Fakes (stubs & shims) - 2 punkty
@@ -32,6 +33,7 @@ namespace PzaleszczykUnitTest
         public void Startup()
         {
             cypher = new Cypher();
+            Debug.WriteLine(this.TestContext.ToString());
         }
 
         [TestCleanup()]
@@ -45,7 +47,7 @@ namespace PzaleszczykUnitTest
         [DataRow(2,"!S iedem.?!", "!U kgfgo.?!")]
         [DataRow(3,"DFSDFADFSASDF", "GIVGIDGIVDVGI")]
         [DataRow(4,"..//./....//.///.////", "..//./....//.///.////")]
-        [DataRow(7, "Łłó", "Łłó")]
+        [DataRow(7, "Łł", "Łł")]
         public void CaesarEncrypt(int key, string input, string output)
         {
             string actual = cypher.C_crypt(input, key);
@@ -102,17 +104,26 @@ namespace PzaleszczykUnitTest
         [TestMethod]
         public void AffineDecrypt()
         {
-            int keya = Convert.ToInt32(TestContext.DataRow["keya"]);
-            int keyb = Convert.ToInt32(TestContext.DataRow["keyb"]);
-
-            string text = "Zdtpx!";
-
-
+            int keya = ((int)TestContext.DataRow[0]);
+            int keyb = ((int)TestContext.DataRow[1]);
+            string text = ((string)TestContext.DataRow[2]);
             string actual = cypher.A_decrypt(text, keya, keyb);
-            string expected = "Ptjfn!";
+            string expected = ((string)TestContext.DataRow[3]);
 
             Assert.AreEqual(expected, actual, "Affine decrypt is incorrect");
 
+        }
+
+        [TestMethod]
+        public void AffineDecryptPolish()
+        {
+            int keya = 19;
+            int keyb = 2;
+            string text = "łŁo";
+            string expected = "łŁc";
+            string actual = cypher.A_decrypt(text, keya, keyb);
+
+            Assert.AreEqual(expected, actual, "Affine decrypt is incorrect");
         }
 
         [TestMethod]
@@ -187,6 +198,24 @@ namespace PzaleszczykUnitTest
             string[] expected = cypher.C_analyzeAll(null);
             Assert.IsNull(expected, "Does not return null");
         }
+        
+
+        [TestMethod]
+        public void CaesarAnalyzeNoneNull()
+        {
+            //CollectionAssert.AllItemsAreNotNull(ICollection);
+            string[] expected = cypher.C_analyzeAll("asdfadfadfasdf");
+            CollectionAssert.AllItemsAreNotNull(expected);
+            //Assert.IsNull(expected, "Does not return null");
+        }
+
+        [TestMethod]
+        public void AffineAnalyzeNoneNull()
+        {
+            string[] expected = cypher.A_analyzeAll("dasdasdasdas");
+            CollectionAssert.AllItemsAreNotNull(expected);
+            //Assert.IsNull(expected, "Does not return null");
+        }
 
         [TestMethod]
         public void GCDTest()
@@ -235,4 +264,3 @@ namespace PzaleszczykUnitTest
     }
 
 }
-

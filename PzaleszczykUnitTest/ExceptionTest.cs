@@ -40,11 +40,6 @@ namespace PzaleszczykUnitTest
         }
 
         [TestMethod]
-        public void CaesarDecrypt()
-        {
-
-        }
-        [TestMethod]
         public void AffineEncryptWrongKeyFluent()
         {
             Action action = () => cypher.A_crypt("exception", 13, 13);
@@ -52,12 +47,7 @@ namespace PzaleszczykUnitTest
         }
 
         [TestMethod]
-        public void AffineDecrypt()
-        {
-
-        }
-        [TestMethod]
-        public void CaesarAnalyze()
+        public void CaesarAnalyzeFluent()
         {
             Action action = () => cypher.C_analyze("?","!");
             action.Should().Throw<Exception>().WithMessage("ERROR: Nie da sie znalesc klucza!");
@@ -66,6 +56,9 @@ namespace PzaleszczykUnitTest
         [TestMethod]
         public void AffineAnalyze()
         {
+            Action action = () => cypher.A_analyze("?", "!");
+            Assert.ThrowsException<Exception>(action);
+            //action.Should().Throw<Exception>().WithMessage("ERROR: Nie da sie znalesc klucza!");
 
         }
 

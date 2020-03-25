@@ -7,7 +7,45 @@ using System.Threading.Tasks;
 
 namespace PzaleszczykLib
 {
-    public class Cypher
+    public class StubCypher : ICypher
+    {
+        public int GCD(int left, int right)
+        {
+            return 1;//dla prime
+        }
+
+        public int Inverse(int value)
+        {
+            return 9;//dla 3
+        }
+    }
+
+    public class StubChecker
+    {
+        private ICypher _interface = null;
+
+        public StubChecker()
+        {
+            _interface = new Cypher();
+        }
+
+        public StubChecker(ICypher tmp)
+        {
+            _interface = tmp;
+        }
+
+        public int GCD(int a,int b)
+        {
+            return _interface.GCD(a,b);
+        }
+
+        public int Inverse(int value)
+        {
+            return _interface.Inverse(value);
+        }
+    }
+
+    public class Cypher : ICypher
     {
 
         public String[] A_analyzeAll(String text)
@@ -232,6 +270,10 @@ namespace PzaleszczykLib
             {
                 throw new Exception("ERROR: Nie da sie znalesc klucza!");
             }
+        }
+        public int return2()
+        {
+            return 2;
         }
     }
 }

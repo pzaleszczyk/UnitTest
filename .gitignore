@@ -375,3 +375,8 @@ healthchecksdb
 /coverage/css/dotcover.report.gen.css
 /coverage/css/dotcover.report.css
 /config.xml
+/coverageMS/css/dotcover.report.css
+*.css
+*.svg
+*.js
+*.html

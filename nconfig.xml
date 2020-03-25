@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageParams>
+  <TargetExecutable>X:\Visual\Common7\IDE\Extensions\TestPlatform\vstest.console.exe</TargetExecutable>
+  <TargetArguments>X:\repos\PzaleszczykLib\PzaleszczykNUnitTest\bin\Debug\netcoreapp3.0\PzaleszczykNUnitTest.dll</TargetArguments>
+  <TargetWorkingDir>X:\repos\PzaleszczykLib\PzaleszczykNUnitTest\bin\Debug\</TargetWorkingDir>
+  <TempDir><!-- Directory for auxiliary files. Set to the system temp by default. --></TempDir>
+  <Output>coverage-nunit.html</Output>
+  <InheritConsole><!-- [True|False] Lets the application being analyzed to inherit dotCover console. True by default. --></InheritConsole>
+  <AnalyzeTargetArguments>true</AnalyzeTargetArguments>
+  <ReportType>HTML</ReportType>
+  <!-- Attribute filters. It's possible to use asterisks as wildcard symbols.
+  <AttributeFilters>
+    <AttributeFilterEntry> Attribute class mask </AttributeFilterEntry>
+    <AttributeFilterEntry>System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute</AttributeFilterEntry>
+  </AttributeFilters>
+  -->
+  <!-- Process Filters. It's possible to use asterisks as wildcard symbols.
+  <ProcessFilters>
+    <IncludeFilters>
+      <ProcessMask>SampleProcess*</ProcessMask>
+    </IncludeFilters>
+    <ExcludeFilters>
+	    <ProcessMask>SampleProcess.exe</ProcessMask>
+	  </ExcludeFilters>
+  </ProcessFilters>
+  -->
+</CoverageParams>

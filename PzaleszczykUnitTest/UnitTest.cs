@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PzaleszczykLib;
 using FluentAssertions;
 using System.Diagnostics;
+using Pose;
 
 namespace PzaleszczykUnitTest
 {
@@ -260,7 +261,24 @@ namespace PzaleszczykUnitTest
 
         }
 
-       
+        [TestMethod]
+        public void shimtestwithstub()
+        {
+            StubCypher stub = new StubCypher();
+            int inverse = 0;
+
+            var cshim = Shim.Replace(() => new StubChecker())
+                .With(() => new StubChecker(stub));
+
+            PoseContext.Isolate(() =>
+            {
+                StubChecker nowy = new StubChecker();
+                inverse = nowy.Inverse(1);
+            }, cshim);
+
+            inverse.Should().Be(9);
+        }
+
     }
 
 }
